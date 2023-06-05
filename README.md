@@ -2,11 +2,11 @@
 
 HI data reduction for the ViCTORIA project.
 
-# data download
+### data download
 
 ...
 
-## data reduction
+### data reduction
 
 ```
 cd /home/pserra/Astro/virgo/meerkat/data_reduction/<MS-id>
