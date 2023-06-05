@@ -1,0 +1,76 @@
+schema_version: 1.0.6
+
+general:
+  prefix: oct
+  rawdatadir: /home/pserra/Astro/virgo/meerkat/rawdata
+  backend: docker
+
+getdata:
+  dataid:
+    - <MS-id>_sdp_l0
+  extension: ms
+
+obsconf:
+  refant: auto
+  minbase: 200
+
+transform__avg:
+  enable: true
+  label_in: corr
+  label_out: cont
+  field: target
+  split_field:
+    enable: true
+    chan_avg: 35
+    col: data
+
+flag:
+  enable: true
+  field: target
+  label_in: cont
+  flag_spw:
+    enable: true
+    chans: '*:1379.6~1382.3MHz,*:1419.5~1421.3MHz'
+    ensure_valid: true
+
+selfcal:
+  enable: true
+  label_in: cont
+  rewind_flags:
+    enable: true
+  ncpu: 8
+  img_npix: 2700
+  img_cell: 4
+  img_taper: '12'
+  img_nchans: 5
+  img_specfit_nrcoeff: 3
+  img_robust: -0.5
+  img_nrdeconvsubimg: 8
+  img_mgain: 0.99
+  cal_niter: 2
+  cal_gain_cliplow: 0
+  cal_gain_cliphigh: 0
+  cal_cubical:
+    max_prior_error: 0
+    max_post_error: 0
+    flag_madmax: false
+    shared_mem: 60Gb
+    dist_max_chunks: 8
+  image:
+    enable: true
+    clean_cutoff: [0.5,]
+    cleanmask_method: [sofia,]
+    cleanmask_thr: [6,5,5]
+    cleanmask_localrms: [True,]
+    cleanmask_localrms_window: [300,]
+    absmem: 60
+  img_sofia_settings:
+    kernels: [0, 3, 6, 12, 24]
+  calibrate:
+    enable: true
+    gain_matrix_type: [GainDiagPhase,]
+    gsols_timeslots: [15,]
+  transfer_apply_gains:
+    enable: false
+  transfer_model:
+    enable: false

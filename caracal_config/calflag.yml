@@ -1,0 +1,51 @@
+schema_version: 1.0.6
+
+general:
+  prefix: oct
+  rawdatadir: /home/pserra/Astro/virgo/meerkat/rawdata
+  backend: docker
+
+getdata:
+  dataid:
+    - <MS-id>_sdp_l0
+  extension: ms
+
+obsconf:
+  refant: auto
+  minbase: 200
+
+transform:
+  enable: true
+  label_in: ''
+  label_out: corr
+  field: target
+  split_field:
+    enable: true
+    otfcal:
+      enable: true
+      label_cal: 1gc
+
+flag__sarao:
+  enable: true
+  field: target
+  label_in: corr
+  summary:
+    enable: true
+
+flag:
+  enable: true
+  field: target
+  label_in: corr
+  flag_autocorr:
+    enable: true
+  flag_shadow:
+    enable: true
+    full_mk64: true
+  flag_rfi:
+    enable: true
+    flagger: aoflagger
+    aoflagger:
+      strategy: flagtarget_Q.rfis
+  inspect:
+    enable: true
+    time_step: 10

@@ -1,0 +1,130 @@
+schema_version: 1.0.6
+
+general:
+  prefix: oct
+  rawdatadir: /home/pserra/Astro/virgo/meerkat/rawdata
+  backend: docker
+
+getdata:
+  dataid:
+    - <MS-id>_sdp_l0
+  extension: ms
+
+obsconf:
+  refant: auto
+  minbase: 200
+
+selfcal__line:
+  enable: false
+  label_in: cont
+  rewind_flags:
+    enable: true
+  ncpu: 8
+  img_npix: 2700
+  img_cell: 4
+  img_taper: '12'
+  img_nchans: 4
+  img_specfit_nrcoeff: 3
+  img_robust: -0.5
+  img_nrdeconvsubimg: 8
+  img_mgain: 0.99
+  cal_niter: 2
+  cal_gain_cliplow: 0
+  cal_gain_cliphigh: 0
+  cal_cubical:
+    max_prior_error: 0
+    max_post_error: 0
+    flag_madmax: false
+    shared_mem: 60Gb
+    dist_max_chunks: 8
+  image:
+    enable: false
+    clean_cutoff: [0.5,]
+    cleanmask_method: [sofia,]
+    cleanmask_thr: [6,5,5]
+    cleanmask_localrms: [True,]
+    cleanmask_localrms_window: [300,]
+    absmem: 60
+  img_sofia_settings:
+    kernels: [0, 3, 6, 12, 24]
+  calibrate:
+    enable: false
+    gain_matrix_type: [GainDiagPhase,]
+    gsols_timeslots: [15,]
+  transfer_apply_gains:
+    enable: true
+    transfer_to_label: corr
+  transfer_model:
+    enable: true
+    transfer_to_label: corr
+
+line__prep:
+  enable: false
+  restfreq: '1.420405752GHz'
+  label_in: corr
+  rewind_flags:
+    enable: true
+  subtractmodelcol:
+    enable: true
+  mstransform:
+    enable: true
+    doppler:
+      enable: true
+      telescope: meerkat
+      changrid: '790,1395.669278774MHz,0.052247308MHz'
+    uvlin:
+      enable: true
+      exclude_known_sources: false
+      fitorder: 3
+  flag_mst_errors:
+    enable: true
+
+flag__mw:
+  enable: false
+  field: target
+  label_in: corr_mst
+  flag_spw:
+    enable: true
+    chans: '*:1379.6~1382.3MHz,*:1420.36~1420.56MHz'
+    ensure_valid: true
+
+line__image:
+  enable: true
+  restfreq: '1.420405752GHz'
+  label_in: corr
+  rewind_flags:
+    enable: true
+  subtractmodelcol:
+    enable: false
+  predict_noise:
+    enable: true
+  make_cube:
+    enable: false
+    use_mstransform: true
+    npix: [1440]
+    wscl_sofia_niter: 2
+    wscl_auto_mask: 6
+    wscl_nrdeconvsubimg: 4
+    cell: 5
+    taper: 15
+    niter: 1000000
+    robust: 0
+    nchans: 400
+    firstchan: 180
+    binchans: 1
+  pb_cube:
+    enable: true
+    pb_type: mauch
+  remove_stokes_axis:
+    enable: true
+  freq_to_vel:
+    enable: true
+  imcontsub:
+    enable: true
+#    mask: clean
+    fitmode: poly
+    polyorder: 6
+    kertyp: gauss
+    kersiz: 3
+    outfit: true
+    outfitcon: true

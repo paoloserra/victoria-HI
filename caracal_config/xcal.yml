@@ -1,0 +1,122 @@
+schema_version: 1.0.6
+
+general:
+  prefix: oct
+  rawdatadir: /home/pserra/Astro/virgo/meerkat/rawdata
+  backend: docker
+
+getdata:
+  dataid:
+    - <MS-id>_sdp_l0
+  extension: ms
+
+obsconf:
+  refant: auto
+  minbase: 200
+
+transform__cal:
+  enable: true
+  label_out: cal
+  field: calibrators
+  split_field:
+    enable: true
+    col: data
+
+prep__cal:
+  enable: true
+  label_in: cal
+  field: calibrators
+  specweights:
+    enable: true
+    mode: uniform
+
+flag__sarao:
+  enable: true
+  field: calibrators
+  label_in: cal
+  summary:
+    enable: true
+
+flag__cal:
+  enable: true
+  field: calibrators
+  label_in: cal
+  flag_autocorr:
+    enable: true
+  flag_shadow:
+    enable: true
+    full_mk64: true
+  flag_spw:
+    enable: true
+    chans: '*:1379.6~1382.3MHz,*:1419.5~1421.3MHz'
+    ensure_valid: true
+  flag_rfi:
+    enable: true
+    flagger: aoflagger
+    aoflagger:
+      strategy: firstpass_Q_sparsescans.rfis
+
+inspect__precal:
+  enable: true
+  field: calibrators
+  label_in: cal
+  label_plot: pre_1gc
+  dirname: rawdat
+  standard_plotter: none
+  shadems:
+    enable: true
+    ignore_errors: true
+    default_column: DATA
+    plots_by_field:
+      - "-x FREQ   -y phase --corr XX"
+      - "-x FREQ   -y phase --corr YY"
+      - "-x FREQ   -y amp  --corr XX"
+      - "-x FREQ   -y amp  --corr YY"
+
+crosscal:
+  enable: true
+  uvrange: '>100'
+  label_in: cal
+  label_cal: 1gc
+  set_model:
+    enable: true
+    meerkat_skymodel: true
+    tile_size: 16
+  primary:
+    order: KGBKGB
+    calmode: ['', ap, '', '', ap, '']
+    solint: [inf, inf, inf, inf, inf, inf]
+    combine: [scan, '', scan, scan, '', scan]
+    b_fillgaps: 700
+    b_smoothwindow: 9
+    plotgains: true
+  secondary:
+    apply: KB
+    order: GAF
+    calmode: [ap, null, ap]
+    solint: [inf, null, inf]
+    combine: ['', null, '']
+    plotgains: true
+  apply_cal:
+    applyto:
+      - gcal
+      - bpcal
+
+inspect__postcal:
+  enable: true
+  label_in: cal
+  field: calibrators
+  label_plot: 1gc
+  dirname: 1gc
+  standard_plotter: none
+  shadems:
+    enable: true
+    ignore_errors: true
+    default_column: CORRECTED_DATA
+    plots_by_field:
+      - "-x FREQ   -y phase --corr XX"
+      - "-x FREQ   -y phase --corr YY"
+      - "-x FREQ   -y amp  --corr XX"
+      - "-x FREQ   -y amp  --corr YY"
+      - "-x real    -y imag  --corr XX"
+      - "-x real    -y imag  --corr YY"
