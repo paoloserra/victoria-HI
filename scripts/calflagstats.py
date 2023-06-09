@@ -4,12 +4,12 @@ import yaml
 import os
 import glob
 
-flagstatsfiles = glob.glob('{0:s}/output/diagnostic_plots/*.json'.format(os.getcwd()))
+flagstatsfiles = glob.glob('{0:s}/output/diagnostic_plots/*cal*.json'.format(os.getcwd()))
 flagstatsfiles.sort(key=lambda x: os.path.getmtime(x))
 
 os.system('mkdir -p {0:s}/gtb_reports'.format(os.getcwd()))
 g = open('{0:s}/gtb_reports/calflagstats.txt'.format(os.getcwd()), 'w')
-g.write('# Calibrators flagged fraction\n\n')
+g.write('## Calibrators flagged fraction\n\n')
 
 for ff in flagstatsfiles:
   g.write('*{0:s}*\n'.format(os.path.basename(ff)))
