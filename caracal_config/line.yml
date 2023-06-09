@@ -59,23 +59,26 @@ selfcal__line:
     transfer_to_label: corr
 
 line__prep:
-  enable: false
+  enable: true
   restfreq: '1.420405752GHz'
   label_in: corr
   rewind_flags:
     enable: true
   subtractmodelcol:
-    enable: true
+    enable: false
   mstransform:
     enable: true
+    col: data
+    uvlin:
+      enable: true
+      exclude_known_sources: true
+      known_sources_cat: brightHIcat.txt
+      fitorder: 10
+      fitspw: '0:0~862;900~1399' # exclude +/- 100 km/s from topocentric v=0, pre-Doppler regridding
     doppler:
       enable: true
       telescope: meerkat
-      changrid: '790,1395.669278774MHz,0.052247308MHz'
-    uvlin:
-      enable: true
-      exclude_known_sources: false
-      fitorder: 3
+      changrid: '1380,1397.661376954MHz,0.026123047MHz'
   flag_mst_errors:
     enable: true
 
@@ -99,28 +102,27 @@ line__image:
   predict_noise:
     enable: true
   make_cube:
-    enable: false
-    use_mstransform: true
-    npix: [1440]
-    wscl_sofia_niter: 2
-    wscl_auto_mask: 6
-    wscl_nrdeconvsubimg: 4
-    cell: 5
-    taper: 15
-    niter: 1000000
-    robust: 0
-    nchans: 400
-    firstchan: 180
-    binchans: 1
-  pb_cube:
     enable: true
+    use_mstransform: true
+    npix: [720]
+    wscl_sofia_niter: 1
+    wscl_auto_mask: 6
+    wscl_nrdeconvsubimg: 1
+    cell: 10
+    taper: 30
+    niter: 0
+    robust: 0
+    firstchan: 235
+    nchans: 728
+  pb_cube:
+    enable: false
     pb_type: mauch
   remove_stokes_axis:
     enable: true
   freq_to_vel:
     enable: true
   imcontsub:
-    enable: true
+    enable: false
 #    mask: clean
     fitmode: poly
     polyorder: 6

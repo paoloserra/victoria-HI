@@ -9,12 +9,16 @@ HI data reduction for the ViCTORIA project.
 ### data reduction
 
 ```
+source /home/pserra/Astro/caracal-venv/boin/activate
 cd /home/pserra/Astro/virgo/meerkat/data_reduction/<MS-id>
 mkdir -p input
 cp /home/pserra/Astro/virgo/meerkat/brightHIcat.txt input/.
+cp /home/pserra/Astro/virgo/meerkat/victoria-HI/caracal_config/*.yml .
+[edit <MS-id> in .yml files]
 caracal -c xcal.yml
 python3.7 /home/pserra/Astro/virgo/meerkat/victoria-HI/scripts/calflagstats.py
 caracal -c calflag.yml
 python3.7 /home/pserra/Astro/virgo/meerkat/victoria-HI/scripts/targetflagstats.py
 caracal -c cont.yml
 caracal -c line.yml
+```
