@@ -42,10 +42,10 @@ flag:
     enable: true
     full_mk64: true
   flag_rfi:
-    enable: true
+    enable: false
     flagger: aoflagger
     aoflagger:
       strategy: flagtarget_Q.rfis
   inspect:
-    enable: true
+    enable: false
     time_step: 10
