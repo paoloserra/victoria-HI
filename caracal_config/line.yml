@@ -105,17 +105,18 @@ line__image:
     enable: true
     use_mstransform: true
     npix: [720]
-    wscl_sofia_niter: 1
+    wscl_sofia_niter: 2
     wscl_auto_mask: 6
     wscl_nrdeconvsubimg: 1
+    wscl_mgain: 0.99
     cell: 10
     taper: 30
-    niter: 0
+    niter: 1000000000
     robust: 0
     firstchan: 235
     nchans: 728
   pb_cube:
-    enable: false
+    enable: true
     pb_type: mauch
   remove_stokes_axis:
     enable: true
