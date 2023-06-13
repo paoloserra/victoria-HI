@@ -9,7 +9,7 @@ HI data reduction for the ViCTORIA project.
 ### data reduction
 
 ```
-source /home/pserra/Astro/caracal-venv/boin/activate
+source /home/pserra/Astro/caracal-venv-3.7/bin/activate
 cd /home/pserra/Astro/virgo/meerkat/data_reduction/<MS-id>
 mkdir -p input
 cp /home/pserra/Astro/virgo/meerkat/brightHIcat.txt input/.
