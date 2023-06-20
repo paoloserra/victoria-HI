@@ -153,8 +153,10 @@ for tt in target_name:
   plt.plot( head['crval3'] + (np.arange(head['naxis3'])-head['crpix3']+1) * head['cdelt3'], 1.4826*np.median(np.abs(cube)*1000, axis=(1,2)), cols[coli]+'-', label=tt)
   coli += 1
 
-f.write('```\n')
+f.write('```\n\n')
+f.write('<rms.png>')
 f.close()
+
 plt.legend()
 plt.xlabel('radio velocity (km/s)')
 plt.ylabel('noise (mJy/beam)')
