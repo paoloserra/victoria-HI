@@ -4,6 +4,28 @@ import yaml
 import os
 import glob
 
+obsinfofile = '{0:s}/output/log-caracal.txt'.format(os.getcwd())
+start_record = 0
+
+for ll in open(obsinfofile).readlines():
+  if 'CARACal INFO: obsconf: running' in ll:
+    break
+  if ' CARACal INFO: MS #0:' in ll:
+    start_record = 1
+    goodlines = []
+  if start_record:
+    goodlines.append(ll)
+
+g = open('{0:s}/gtb_reports/obsinfo.txt'.format(os.getcwd()), 'w')
+g.write('## Obsinfo\n\n')
+g.write('```\n')
+for ll in goodlines:
+  g.write(ll.split(' CARACal INFO: ')[-1])
+g.write('```\n')
+g.write('\n')
+g.write('<elevation plot>')
+g.close()
+
 flagstatsfiles = glob.glob('{0:s}/output/diagnostic_plots/*cal*.json'.format(os.getcwd()))
 flagstatsfiles.sort(key=lambda x: os.path.getmtime(x))
 
@@ -51,3 +73,10 @@ for ff in flagstatsfiles:
   g.write('\n')
 
 g.close()
+
+os.system('cp {0:s}/msdir/??????????_sdp_l0-elevation-tracks.png {0:s}/gtb_reports/.'.format(os.getcwd()))
+os.system('cp {0:s}/output/diagnostic_plots/crosscal/*_sdp_l0-1gc_primary.K1.png {0:s}/gtb_reports/.'.format(os.getcwd()))
+os.system('cp {0:s}/output/diagnostic_plots/crosscal/*_sdp_l0-1gc_primary.B1.png  {0:s}/gtb_reports/.'.format(os.getcwd()))
+os.system('cp {0:s}/output/diagnostic_plots/crosscal/*_sdp_l0-1gc_secondary.F0.png {0:s}/gtb_reports/.'.format(os.getcwd()))
+os.system('cp {0:s}/output/diagnostic_plots/1gc/*_sdp_l0-cal-J1939-6342-CORRECTED_DATA-??-*-FREQ.png {0:s}/gtb_reports/.'.format(os.getcwd()))
+os.system('cp {0:s}/output/diagnostic_plots/1gc/*_sdp_l0-cal-J1150-0023-CORRECTED_DATA-??-imag-real.png {0:s}/gtb_reports/.'.format(os.getcwd()))

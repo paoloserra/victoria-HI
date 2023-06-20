@@ -113,8 +113,8 @@ line__image:
     taper: 30
     niter: 1000000000
     robust: 0
-    firstchan: 235
-    nchans: 728
+    firstchan: 185
+    nchans: 828
   pb_cube:
     enable: true
     pb_type: mauch

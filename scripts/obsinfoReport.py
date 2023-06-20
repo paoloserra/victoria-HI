@@ -76,10 +76,10 @@ summaryfile = glob.glob('{0:s}/msdir/?????????_sdp_l0-summary.json'.format(os.ge
 #dataid = between(tmp[0], '[', ']').replace('\'','')
 
 #if not dataid:
-#    ftmp = open('xcal.yml', 'r') 
-#    Lines = ftmp.readlines() 
+#    ftmp = open('xcal.yml', 'r')
+#    Lines = ftmp.readlines()
 
-#    for i, line in enumerate(Lines): 
+#    for i, line in enumerate(Lines):
 #        if 'dataid' in line:
 #            dataid = Lines[i+1].replace('- ','')[:-1].strip()
 #            break
@@ -94,7 +94,7 @@ f = open('{0:s}/gtb_reports/obsinfo.txt'.format(os.getcwd()), 'w')
 f.write('{} antennas in MS:\n'.format(len(ants)))
 f.write('{}\n\n'.format(','.join(ants)))
 
-cmd = 'python /idia/projects/fornax/MFS-data-reduction/miscellaneous_scripts/baselinesReport.py --in {} --track {}'.format(
+cmd = 'python /home/pserra/Astro/virgo/meerkat/victoria-HI/scripts/baselinesReport.py --in {} --track {}'.format(
     ','.join(ants), trackNr)
 os.system(cmd)
 
@@ -115,17 +115,17 @@ obsInfoFormatted = []
 for lines in obsInfo:
     obsInfoFormatted.append(' '.join(lines.split()[4:])+'\n')
 
-f.write('```\n')    
-    
+f.write('```\n')
+
 keys = ['TARGET', 'CALIBRATE_AMPL',
        'CALIBRATE_FLUX', 'CALIBRATE_BANDPASS']
 
 for key in keys:
     t = pickLine(obsInfoFormatted, key)[0]
     writeStat(t)
-    temp = obsInfoFormatted.index(t) 
+    temp = obsInfoFormatted.index(t)
     writeStat(obsInfoFormatted[temp+1])
-    
+
 f.write('```\n\n')
 
 f.write('<mfs_report_track{}/{}>'.format(trackNr, pngList[0]))
