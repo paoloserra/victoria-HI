@@ -30,7 +30,7 @@ flag:
   label_in: cont
   flag_spw:
     enable: true
-    chans: '*:1379.6~1382.3MHz,*:1419.5~1421.3MHz'
+    chans: '*:1419.5~1421.3MHz'
     ensure_valid: true
 
 selfcal:

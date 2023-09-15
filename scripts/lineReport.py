@@ -109,11 +109,15 @@ target_dec = [float(dec.split('Dec=')[-1]) for dec in target_dec]
 radec = [[target_ra[ii], target_dec[ii]] for ii in range(len(target_ra))]
 radec = dict(zip(target_name, radec))
 
-fin = 'output/log-caracal.txt'
+if len(sys.argv)>1:
+  fin = 'output/{0:s}/log-caracal.txt'.format(sys.argv[1])
+else:
+  fin = 'output/log-caracal.txt'
+print('Using {}'.format(fin))
 prefix = pickLine(findString(fin, 'CARACal INFO:'), 'prefix:')[0].strip().split()[-1]
 
 f = open('{}/gtb_reports/linereport.txt'.format(cwd), 'w')
-f.write('# Line\n\n')
+f.write('## Line\n\n')
 
 conv_dict = {'Hz'  : 1e-6,
              'MHz' : 1,
@@ -128,7 +132,7 @@ dpi = 500
 vmin, vmax = -2, 2 #endpoints of colourscale in mJy/beam
 
 f = open('{}/gtb_reports/linereport.txt'.format(cwd), 'w')
-f.write('# Line\n\n')
+f.write('## Line\n\n')
 f.write('```\n')
 f.write('   field rms_expect rms_measur\n')
 f.write('         (mJy/beam) (mJy/beam)\n')
