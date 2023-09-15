@@ -14,6 +14,16 @@ obsconf:
   refant: auto
   minbase: 200
 
+flag__rfi:
+  enable: true
+  field: target
+  label_in: corr
+  flag_rfi:
+    enable: true
+    flagger: aoflagger
+    aoflagger:
+      strategy: flagtarget_Q.rfis
+
 transform__avg:
   enable: true
   label_in: corr
@@ -24,7 +34,7 @@ transform__avg:
     chan_avg: 35
     col: data
 
-flag:
+flag__mw:
   enable: true
   field: target
   label_in: cont
@@ -39,13 +49,13 @@ selfcal:
   rewind_flags:
     enable: true
   ncpu: 8
-  img_npix: 2700
-  img_cell: 4
-  img_taper: '12'
-  img_nchans: 5
+  img_npix: 2160
+  img_cell: 5
+  img_taper: '15'
+  img_nchans: 4
   img_specfit_nrcoeff: 3
   img_robust: -0.5
-  img_nrdeconvsubimg: 8
+  img_nrdeconvsubimg: 5
   img_mgain: 0.99
   cal_niter: 2
   cal_gain_cliplow: 0
@@ -69,7 +79,7 @@ selfcal:
   calibrate:
     enable: true
     gain_matrix_type: [GainDiagPhase,]
-    gsols_timeslots: [15,]
+    gsols_timeslots: [40,] # 1 solution per target scan
   transfer_apply_gains:
     enable: false
   transfer_model:

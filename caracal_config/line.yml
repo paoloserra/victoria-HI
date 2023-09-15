@@ -15,14 +15,14 @@ obsconf:
   minbase: 200
 
 selfcal__line:
-  enable: false
+  enable: true
   label_in: cont
   rewind_flags:
     enable: true
   ncpu: 8
-  img_npix: 2700
-  img_cell: 4
-  img_taper: '12'
+  img_npix: 2160
+  img_cell: 5
+  img_taper: '15'
   img_nchans: 4
   img_specfit_nrcoeff: 3
   img_robust: -0.5
@@ -36,7 +36,7 @@ selfcal__line:
     max_post_error: 0
     flag_madmax: false
     shared_mem: 60Gb
-    dist_max_chunks: 8
+    dist_max_chunks: 2
   image:
     enable: false
     clean_cutoff: [0.5,]
@@ -50,7 +50,7 @@ selfcal__line:
   calibrate:
     enable: false
     gain_matrix_type: [GainDiagPhase,]
-    gsols_timeslots: [15,]
+    gsols_timeslots: [40,]
   transfer_apply_gains:
     enable: true
     transfer_to_label: corr
@@ -65,15 +65,15 @@ line__prep:
   rewind_flags:
     enable: true
   subtractmodelcol:
-    enable: false
+    enable: true
   mstransform:
     enable: true
-    col: data
+    col: corrected
     uvlin:
       enable: true
       exclude_known_sources: true
       known_sources_cat: brightHIcat.txt
-      fitorder: 10
+      fitorder: 4
       fitspw: '0:0~862;900~1399' # exclude +/- 100 km/s from topocentric v=0, pre-Doppler regridding
     doppler:
       enable: true
