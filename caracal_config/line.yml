@@ -19,15 +19,18 @@ selfcal__line:
   label_in: cont
   rewind_flags:
     enable: true
-  ncpu: 8
+    mode: rewind_to_version
+    version: oct_selfcal_after
+    transfer_apply_gains_version: oct_flag_after # undo rfi flagging meant for continuum imaging (e.g., MW heavily flagged)
+  ncpu: 60
   img_npix: 2160
   img_cell: 5
   img_taper: '15'
   img_nchans: 4
   img_specfit_nrcoeff: 3
   img_robust: -0.5
-  img_nrdeconvsubimg: 8
-  img_mgain: 0.99
+  img_nrdeconvsubimg: 5
+  img_mgain: 0.90
   cal_niter: 2
   cal_gain_cliplow: 0
   cal_gain_cliphigh: 0
@@ -35,8 +38,8 @@ selfcal__line:
     max_prior_error: 0
     max_post_error: 0
     flag_madmax: false
-    shared_mem: 60Gb
-    dist_max_chunks: 2
+    shared_mem: 300Gb
+    dist_max_chunks: 8
   image:
     enable: false
     clean_cutoff: [0.5,]
@@ -44,7 +47,7 @@ selfcal__line:
     cleanmask_thr: [6,5,5]
     cleanmask_localrms: [True,]
     cleanmask_localrms_window: [300,]
-    absmem: 60
+    absmem: 300
   img_sofia_settings:
     kernels: [0, 3, 6, 12, 24]
   calibrate:
@@ -66,6 +69,8 @@ line__prep:
     enable: true
   subtractmodelcol:
     enable: true
+  predict_noise:
+    enable: false
   mstransform:
     enable: true
     col: corrected
@@ -104,13 +109,13 @@ line__image:
   make_cube:
     enable: true
     use_mstransform: true
-    npix: [720]
-    wscl_sofia_niter: 2
+    npix: [1440]
+    wscl_sofia_niter: 1
     wscl_auto_mask: 6
     wscl_nrdeconvsubimg: 1
     wscl_mgain: 0.99
-    cell: 10
-    taper: 30
+    cell: 5
+    taper: 15
     niter: 1000000000
     robust: 0
     firstchan: 185
