@@ -2,8 +2,8 @@ schema_version: 1.0.6
 
 general:
   prefix: oct
-  rawdatadir: /home/pserra/Astro/virgo/meerkat/rawdata
-  backend: docker
+  rawdatadir: /scratch/usd/pserra/Astro/virgo/meerkat/rawdata/
+  backend: singularity
 
 getdata:
   dataid:
