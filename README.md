@@ -15,11 +15,11 @@ mkdir sbatch_logs
 cp /home/pserra/victoria-HI/caracal_config/*.yml .
 cp /home/pserra/victoria-HI/caracal_config/*.sbatch .
 [edit <MS-id> in .yml files]
+nano *.yml
 caracal -c xcal.yml
 caracal -c calflag.yml
-python3.7 /home/pserra/Astro/virgo/meerkat/victoria-HI/scripts/targetflagstats.py
+caracal -c cont.yml
 caracal -c line.yml
-python3.7 /home/pserra/Astro/virgo/meerkat/victoria-HI/scripts/lineReport.py
 [when done free up disc space]
 rm -rf msdir/??????????_sdp_l0-cal.ms*
 rm -rf msdir/??????????_sdp_l0-virgo???-corr.ms*

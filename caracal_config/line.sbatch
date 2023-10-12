@@ -25,7 +25,7 @@ export SINGULARITY_LOCALCACHEDIR=/scratch/usd/pserra/.singularity_localcache
 
 source /home/floi/stimela_venv/bin/activate
 caracal -c line.yml -sid /home/floi/singularity_images
-#python /home/pserra/victoria-HI/scripts/contReport.py
+python /home/pserra/victoria-HI/scripts/lineReport.py 
 deactivate
 
 chmod -R g+w .

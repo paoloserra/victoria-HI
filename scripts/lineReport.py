@@ -133,9 +133,10 @@ vmin, vmax = -2, 2 #endpoints of colourscale in mJy/beam
 
 f = open('{}/gtb_reports/linereport.txt'.format(cwd), 'w')
 f.write('## Line\n\n')
+f.write('Note that the measured noise is expected to be higher than the expected natural noise by an amount which depends on the weights used when imaging. For robust = 0 the noise increase is by a factor ~ 1.5.\n\n')
 f.write('```\n')
-f.write('   field rms_expect rms_measur\n')
-f.write('         (mJy/beam) (mJy/beam)\n')
+f.write('   field rms_nat_expect rms_measur\n')
+f.write('             (mJy/beam) (mJy/beam)\n')
 
 '''
 READ IN FREQUENCY BINNED CUBE
@@ -148,12 +149,12 @@ rms = dict(zip(expected_trg, expected_rms))
 cols=('r', 'y', 'g', 'c', 'b')
 coli=0
 for tt in target_name:
-  imName = 'output/cubes/cube_2/{}_{}_HI.image.fits'.format(prefix, tt)
+  imName = 'output/cubes/cube_1/{}_{}_HI.image.fits'.format(prefix, tt)
   imhdu, wcs, zAxisType, zAxisUnit = cubeRead(imName)
   head = imhdu.header
   cube = imhdu.data
   rms[tt].append(1.4826*np.median(np.abs(cube)))
-  f.write('{0:s} {1:10.3f} {2:10.3f}\n'.format(tt,rms[tt][0]*1000,rms[tt][1]*1000))
+  f.write('{0:s} {1:14.3f} {2:10.3f}\n'.format(tt,rms[tt][0]*1000,rms[tt][1]*1000))
   plt.plot( head['crval3'] + (np.arange(head['naxis3'])-head['crpix3']+1) * head['cdelt3'], 1.4826*np.median(np.abs(cube)*1000, axis=(1,2)), cols[coli]+'-', label=tt)
   coli += 1
 
