@@ -8,6 +8,7 @@ HI data reduction for the ViCTORIA project.
 
 ### data reduction on the OAC cluster
 
+## 1. Single observation
 ```
 mkdir -p /scratch/usd/pserra/Astro/virgo/meerkat/datareduction/<MS-id>
 cd /scratch/usd/pserra/Astro/virgo/meerkat/datareduction/<MS-id>
@@ -20,7 +21,12 @@ caracal -c xcal.yml
 caracal -c calflag.yml
 caracal -c cont.yml
 caracal -c line.yml
-[when done free up disc space]
-rm -rf msdir/??????????_sdp_l0-cal.ms*
-rm -rf msdir/??????????_sdp_l0-virgo???-corr.ms*
+```
+
+## 2. Mosaic
+```
+rm /scratch/usd/pserra/Astro/virgo/meerkat/datareduction/mosaics/mos_input/*.fits
+python /home/pserra/victoria-HI/scripts/make_mos_symlinks.py
+cd /scratch/usd/pserra/Astro/virgo/meerkat/datareduction/mosaics
+sbatch mos.sbatch
 ```
