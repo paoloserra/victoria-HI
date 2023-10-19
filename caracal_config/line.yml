@@ -69,6 +69,7 @@ line__prep:
     enable: true
   subtractmodelcol:
     enable: true
+    force: true
   predict_noise:
     enable: false
   mstransform:
@@ -83,7 +84,7 @@ line__prep:
     doppler:
       enable: true
       telescope: meerkat
-      changrid: '1380,1397.661376954MHz,0.026123047MHz'
+      changrid: '1380,1397.661376954MHz,0.026126000MHz'
   flag_mst_errors:
     enable: true
 
